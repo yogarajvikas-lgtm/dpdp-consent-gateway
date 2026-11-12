@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ABC Hospital | Patient Portal</title>
+
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f4f7f6;
+        color: #172b4d;
+      }
+
+      header {
+        background: #00875a;
+        color: white;
+        padding: 24px 40px;
+      }
+
+      main {
+        max-width: 850px;
+        margin: 60px auto;
+        padding: 35px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+      }
+
+      button {
+        background: #00875a;
+        color: white;
+        border: 0;
+        padding: 13px 22px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 15px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>ABC Hospital</h1>
+      <p>Patient Care Portal</p>
+    </header>
+
+    <main>
+      <h2>Welcome to ABC Hospital</h2>
+      <p>Manage your patient account and access healthcare services.</p>
+
+      <button onclick="startConsent()">Open Privacy Preferences</button>
+
+      <p id="status"></p>
+    </main>
+
+    <script src="../public/sdk.js"></script>
+
+    <script>
+      DPDP.init({
+        publicKey: "pk_test_abc_hospital_001",
+        userId: "ABC_PATIENT_001",
+        language: "en",
+        companyName: "ABC Hospital",
+        theme: {
+          primaryColor: "#00875A",
+          textColor: "#172B4D",
+        },
+      });
+
+      function startConsent() {
+        document.getElementById("status").textContent =
+          "Opening privacy preferences...";
+        DPDP.show();
+      }
+
+      window.addEventListener("dpdp:consent-complete", function (event) {
+        document.getElementById("status").textContent =
+          "Your consent has been recorded.";
+        console.log("ABC Hospital consent:", event.detail);
+      });
+    </script>
+  </body>
+</html>

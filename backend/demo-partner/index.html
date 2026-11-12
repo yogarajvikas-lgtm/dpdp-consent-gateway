@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Enterprise Partner - Demo Website</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f4f6fa;
+        color: #172b4d;
+      }
+
+      header {
+        background: #0052cc;
+        color: white;
+        padding: 20px 8%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 22px;
+        font-weight: bold;
+      }
+
+      main {
+        max-width: 900px;
+        margin: 70px auto;
+        padding: 40px;
+        background: white;
+        border-radius: 14px;
+        text-align: center;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.06);
+      }
+
+      h1 {
+        font-size: 34px;
+      }
+
+      p {
+        line-height: 1.7;
+        color: #526078;
+      }
+
+      .demo-button {
+        margin-top: 20px;
+        padding: 14px 25px;
+        border: none;
+        border-radius: 7px;
+        background: #0052cc;
+        color: white;
+        cursor: pointer;
+        font-size: 15px;
+      }
+
+      footer {
+        text-align: center;
+        padding: 25px;
+        color: #667085;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div class="logo">Enterprise Partner</div>
+      <div>Customer Portal</div>
+    </header>
+
+    <main>
+      <h1>Welcome to Enterprise Partner</h1>
+
+      <p>
+        This is a sample partner website demonstrating integration with the DPDP
+        Consent Gateway.
+      </p>
+
+      <p>
+        Your privacy matters to us. We provide transparent information about how
+        your personal data is processed.
+      </p>
+
+      <button class="demo-button" onclick="startConsent()">
+        Open Privacy Preferences
+      </button>
+
+      <p id="result"></p>
+    </main>
+
+    <footer>Powered by DPDP Consent Gateway — Local Demo</footer>
+
+    <script src="../public/sdk.js"></script>
+
+    <script>
+      function startConsent() {
+        DPDP.init({
+          publicKey: "pk_live_partner_abc123xyz",
+          userId: "DEMO_CUSTOMER_001",
+          language: "en",
+          companyName: "Enterprise Partner Corp India",
+          theme: {
+            primaryColor: "#0052CC",
+            textColor: "#172B4D",
+          },
+        });
+      }
+
+      window.addEventListener("dpdp:consent-complete", function (event) {
+        document.getElementById("result").textContent =
+          "Consent response: " + event.detail.status;
+      });
+    </script>
+  </body>
+</html>
